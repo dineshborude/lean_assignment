@@ -24,7 +24,7 @@ Automated test suite for the Sauce Labs demo website (https://www.saucedemo.com)
 ├── playwright.config.ts      # Playwright configuration
 ├── package.json              # Project dependencies
 └── tsconfig.json            # TypeScript configuration
-
+```
 ## Setup Instructions
 
 ### Prerequisites
