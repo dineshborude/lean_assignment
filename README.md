@@ -125,4 +125,4 @@ Key configurations in `playwright.config.ts`:
 
 - The test randomly selects 3 items from the inventory, so each test run may select different products
 - Standard user credentials: `standard_user` / `secret_sauce`
-- Test execution time: ~10-15 seconds per test
+- Test execution time: ~4-5 seconds per test
