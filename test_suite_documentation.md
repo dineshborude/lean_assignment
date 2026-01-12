@@ -510,12 +510,12 @@ npm run test:report
 ```
 
 **Report Contents**:
-- ✅ Passed tests (green)
-- ❌ Failed tests (red)
-- ⏱️ Execution time per test
-- 📹 Video recordings (failures only)
-- 📸 Screenshots at failure point
-- 🔍 Full execution trace
+-  Passed tests (green)
+-  Failed tests (red)
+-  Execution time per test
+-  Video recordings (failures only)
+-  Screenshots at failure point
+-  Full execution trace
 
 #### JSON Report
 ```bash
