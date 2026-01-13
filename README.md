@@ -27,7 +27,7 @@ Automated test suite for the Sauce Labs demo website (https://www.saucedemo.com)
 ├── package.json              # Project dependencies
 └── tsconfig.json             # TypeScript configuration
 ├── .env.example              # Structural .env file
-├── .env.example              # .env file
+├── .env                      # .env file
 ```
 ## Setup Instructions
 
