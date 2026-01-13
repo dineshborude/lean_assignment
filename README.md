@@ -72,11 +72,6 @@ npm test
 npm run test:headed
 ```
 
-### Run tests with custom credentials
-```bash
-TEST_USERNAME=your_user TEST_PASSWORD=your_pass npm test
-```
-
 ### Run tests with UI mode (interactive)
 ```bash
 npm run test:ui
@@ -126,14 +121,6 @@ The test suite generates multiple report formats:
 
 4. **Console Output**: Real-time test execution logs
 
-## CI/CD Integration
-
-The test suite is configured for CI/CD environments:
-- Automatic retries on failure (2 retries in CI)
-- Screenshot capture on failure
-- Video recording on failure
-- Trace recording for debugging
-- JUnit XML for Jenkins/TeamCity integration
 
 ## Configuration
 
@@ -170,53 +157,13 @@ cp .env.example .env
 # etc.
 ```
 
-**Option 2: Inline with command**
-```bash
-TEST_USERNAME=myuser TEST_PASSWORD=mypass npm test
-```
-
-**Option 3: Export in terminal**
-```bash
-export TEST_USERNAME=myuser
-export TEST_PASSWORD=mypass
-npm test
-```
-
 **Security Note:** 
 - Never commit the `.env` file to version control
 - `.env` is already added to `.gitignore`
 - Only commit `.env.example` as a template
 - Tests will fail with clear error message if variables are missing
 
-### CI/CD Environment Variables
-
-For CI/CD pipelines (GitHub Actions, Jenkins, etc.), set environment variables in your pipeline configuration:
-
-**GitHub Actions Example:**
-```yaml
-- name: Run tests
-  env:
-    TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
-    TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
-    CHECKOUT_FIRST_NAME: ${{ secrets.CHECKOUT_FIRST_NAME }}
-    CHECKOUT_LAST_NAME: ${{ secrets.CHECKOUT_LAST_NAME }}
-    CHECKOUT_POSTAL_CODE: ${{ secrets.CHECKOUT_POSTAL_CODE }}
-  run: npm test
-```
-
-**Jenkins Example:**
-```groovy
-environment {
-    TEST_USERNAME = credentials('test-username')
-    TEST_PASSWORD = credentials('test-password')
-    CHECKOUT_FIRST_NAME = 'John'
-    CHECKOUT_LAST_NAME = 'Doe'
-    CHECKOUT_POSTAL_CODE = '12345'
-}
-```
-
-## Notes
-
+**Note:**
 - The test randomly selects 3 items from the inventory, so each test run may select different products
 - Standard user credentials: `standard_user` / `secret_sauce`
 - Test execution time: ~7-10 seconds per test
