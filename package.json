@@ -2,15 +2,21 @@
   "name": "saucedemo-automation",
   "version": "1.0.0",
   "description": "Automated test suite for Sauce Labs demo website",
+
   "scripts": {
     "test": "playwright test",
     "test:headed": "playwright test --headed",
     "test:report": "playwright show-report",
-    "test:ui": "playwright test --ui"
+    "test:ui": "playwright test --ui",
+    "verify-env": "node -e \"require('dotenv').config(); const missing = ['TEST_USERNAME', 'TEST_PASSWORD', 'CHECKOUT_FIRST_NAME', 'CHECKOUT_LAST_NAME', 'CHECKOUT_POSTAL_CODE'].filter(key => !process.env[key]); if (missing.length) { console.error('Missing required environment variables:', missing.join(', ')); console.error('Please create a .env file from .env.example'); process.exit(1); } else { console.log(' All required environment variables are set'); }\""
   },
   "devDependencies": {
     "@playwright/test": "^1.40.0",
     "@types/node": "^20.10.0",
+    "dotenv": "^16.3.1",
     "typescript": "^5.3.0"
   }
+
+  
+
 }

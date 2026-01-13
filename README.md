@@ -21,9 +21,13 @@ Automated test suite for the Sauce Labs demo website (https://www.saucedemo.com)
 │   └── CheckoutPage.ts       # Checkout page objects and methods
 ├── tests/
 │   └── checkout.spec.ts      # Test specifications
+├── utils/
+│   └── testConfig.ts         # Test data configuration
 ├── playwright.config.ts      # Playwright configuration
 ├── package.json              # Project dependencies
-└── tsconfig.json            # TypeScript configuration
+└── tsconfig.json             # TypeScript configuration
+├── .env.example              # Structural .env file
+├── .env.example              # .env file
 ```
 ## Setup Instructions
 
@@ -37,7 +41,21 @@ Automated test suite for the Sauce Labs demo website (https://www.saucedemo.com)
    npm install
    ```
 
-2. Install Playwright browsers:
+2. **REQUIRED: Create environment file with your credentials:**
+   ```bash
+   # Copy the example environment file
+   cp .env.example .env
+   
+   # Edit .env with your actual credentials
+   # Required variables:
+   #   TEST_USERNAME
+   #   TEST_PASSWORD
+   #   CHECKOUT_FIRST_NAME
+   #   CHECKOUT_LAST_NAME
+   #   CHECKOUT_POSTAL_CODE
+   ```
+
+3. Install Playwright browsers:
    ```bash
    npx playwright install
    ```
@@ -52,6 +70,11 @@ npm test
 ### Run tests in headed mode (visible browser)
 ```bash
 npm run test:headed
+```
+
+### Run tests with custom credentials
+```bash
+TEST_USERNAME=your_user TEST_PASSWORD=your_pass npm test
 ```
 
 ### Run tests with UI mode (interactive)
@@ -121,8 +144,79 @@ Key configurations in `playwright.config.ts`:
 - Automatic retry on failure
 - Screenshot/video capture on failure
 
+### Environment Variables
+
+The test suite **requires** the following environment variables to be set:
+
+**Authentication:**
+- `TEST_USERNAME`: Login username for the application
+- `TEST_PASSWORD`: Login password for the application
+
+**Checkout Information:**
+- `CHECKOUT_FIRST_NAME`: First name for checkout form
+- `CHECKOUT_LAST_NAME`: Last name for checkout form
+- `CHECKOUT_POSTAL_CODE`: Postal code for checkout form
+
+**Setting Environment Variables:**
+
+**Option 1: Using .env file (Recommended)**
+```bash
+# 1. Copy the template
+cp .env.example .env
+
+# 2. Edit .env and add your values
+# TEST_USERNAME=your_username
+# TEST_PASSWORD=your_password
+# etc.
+```
+
+**Option 2: Inline with command**
+```bash
+TEST_USERNAME=myuser TEST_PASSWORD=mypass npm test
+```
+
+**Option 3: Export in terminal**
+```bash
+export TEST_USERNAME=myuser
+export TEST_PASSWORD=mypass
+npm test
+```
+
+**Security Note:** 
+- Never commit the `.env` file to version control
+- `.env` is already added to `.gitignore`
+- Only commit `.env.example` as a template
+- Tests will fail with clear error message if variables are missing
+
+### CI/CD Environment Variables
+
+For CI/CD pipelines (GitHub Actions, Jenkins, etc.), set environment variables in your pipeline configuration:
+
+**GitHub Actions Example:**
+```yaml
+- name: Run tests
+  env:
+    TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
+    TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+    CHECKOUT_FIRST_NAME: ${{ secrets.CHECKOUT_FIRST_NAME }}
+    CHECKOUT_LAST_NAME: ${{ secrets.CHECKOUT_LAST_NAME }}
+    CHECKOUT_POSTAL_CODE: ${{ secrets.CHECKOUT_POSTAL_CODE }}
+  run: npm test
+```
+
+**Jenkins Example:**
+```groovy
+environment {
+    TEST_USERNAME = credentials('test-username')
+    TEST_PASSWORD = credentials('test-password')
+    CHECKOUT_FIRST_NAME = 'John'
+    CHECKOUT_LAST_NAME = 'Doe'
+    CHECKOUT_POSTAL_CODE = '12345'
+}
+```
+
 ## Notes
 
 - The test randomly selects 3 items from the inventory, so each test run may select different products
 - Standard user credentials: `standard_user` / `secret_sauce`
-- Test execution time: ~4-5 seconds per test
+- Test execution time: ~7-10 seconds per test

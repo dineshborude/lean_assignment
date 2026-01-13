@@ -1,4 +1,14 @@
+console.log('CWD:', process.cwd());
+console.log('ENV USER:', process.env.TEST_USERNAME);
+
+
+import 'dotenv/config';
 import { defineConfig, devices } from '@playwright/test';
+
+
+
+// Load environment variables from .env file
+// dotenv.config();
 
 export default defineConfig({
   testDir: './tests',
@@ -17,7 +27,6 @@ export default defineConfig({
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
-    headless: false,
   },
   projects: [
     {
